@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dispaly all Data</title>
+	<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css'%}">
+	<script type="text/javascript" src="{% static '/js/jquery.min.js'%}"></script>
+	<script type="text/javascript" src="{% static '/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+	<div class="container">
+		{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{{message.tags}} alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{{ message }}</div>
+    		{% endfor %}
+
+		{% endif %}
+		<h2 style="text-align: center;">Workshop Details</h2>
+		<table class="table table-hover table-bordered">
+
+		<tr>
+			<thead class="bg-primary" style="color: white;">
+				<th>S.No</th>
+				<th>Workshop Name</th>
+				<th>Organized by</th>
+				<th>Duration</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Delete</th>
+				<th>View</th>
+			</thead>
+		</tr>
+		<tbody>
+	{% for record in data %}
+	<tr>
+		<td>{{record.id}}</td>
+		<td><a href="{% url 'updateworkshopdetails' record.id %}">{{record.name_of_workshop}}</a></td>
+		<td>{{record.organized_by}}</td>
+		<td>{{record.duration}}</td>
+		<td>{{record.start_date}}</td>
+		<td>{{record.end_date}}</td>
+		<td><a href="{%url 'delete' record.id %}">Delete</a></td>
+		<td><a href="{%url 'viewInfo' record.id %}">View</a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+	</div>
+</body>
+</html>
